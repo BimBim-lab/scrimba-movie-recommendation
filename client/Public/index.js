@@ -107,7 +107,7 @@ startBtn.addEventListener('click', async () =>{
         method: 'POST',
         body: JSON.stringify({
             totalPeople,
-            timelimit: answerState.timeLimit,
+            timeLimit: answerState.timeLimit,
         })
     })
     sessionId = out.sessionId;
