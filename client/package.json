@@ -1,0 +1,11 @@
+{
+  "name": "popchoice-client",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "http-server ./public -p 5173 -c-1 --cors"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

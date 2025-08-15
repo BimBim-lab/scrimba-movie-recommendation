@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PopChoice</title>
+        <link rel="stylesheet" href="./index.css">
+        <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body class="center">
+        <main class="container">
+            <!-- START VIEW -->
+            <section id="start-view" class="screen is-active">
+            <div class="card stack">
+                <header class="brand">
+                <img class="brand__logo" src="./assets/popcorn.png" alt="">
+                <h1 class="brand__title">PopChoice</h1>
+                </header>
+
+                <label class="label" for="num">How many people?</label>
+                <input id="num" class="input" type="number" placeholder="e.g., 5" />
+
+                <label class="label" for="time">How much time do you have?</label>
+                <input id="time" class="input" type="text" placeholder="e.g., 2h 30m" />
+
+                <button class="btn btn--primary u-mt-4" id="start-btn">Start</button>
+
+            </div>
+            </section>
+
+            <!-- QUESTIONS VIEW -->
+            <section id="question-view" class="screen">
+            <div class="card stack">
+                <header class="brand">
+                <img class="brand__logo" src="./assets/popcorn.png" alt="">
+                <h2 class="brand__title">Person <span id="person-number">1</span></h2>
+                </header>
+
+                <label class="label" for="q1">What's your favorite movie and why?</label>
+                <textarea id="q1" class="textarea" placeholder="Type here..."></textarea>
+
+                <span class="label">Are you in the mood for something new or a classic?</span>
+                <div class="pills" id="mood-era">
+                <button class="pill" data-v="New">New</button>
+                <button class="pill" data-v="Classic">Classic</button>
+                </div>
+
+                <span class="label">What are you in the mood for?</span>
+                <div class="pills" id="mood-type">
+                <button class="pill" data-v="Fun">Fun</button>
+                <button class="pill" data-v="Serious">Serious</button>
+                <button class="pill" data-v="Inspiring">Inspiring</button>
+                <button class="pill" data-v="Scary">Scary</button>
+                </div>
+
+                <label class="label" for="q4">Which famous film person would you love to be stranded with and why?</label>
+                <textarea id="q4" class="textarea" placeholder="Type here..."></textarea>
+
+                <div class="cluster u-mt-4">
+                <button class="btn btn--ghost" id="back-btn">Back</button>
+                <button class="btn btn--primary" id="next-person-btn">Next Person</button>
+                </div>
+            </div>
+            </section>
+
+            <!-- RESULTS VIEW -->
+            <section id="result-view" class="screen">
+            <article class="card card--tight movie">
+                <img class="movie__poster" src="poster.jpg" alt="">
+                <h3 class="movie__title">The Martian (2015)</h3>
+                <p class="movie__meta">Adventure • 2h 24m • 8.0</p>
+                <p class="movie__desc">The inspiring story of an astronaut stranded on Mars...</p>
+                <button class="btn btn--primary u-mt-4" id="next-movie-btn">Next Movie</button>
+            </article>
+            </section>
+  </main>
+  <script src="./config.js"></script>
+  <script type="module" src="./index.js" defer></script>
+</body>
+</html>

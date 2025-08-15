@@ -1,0 +1,296 @@
+/* ===========================
+   0) CSS RESET + BASE LAYERS
+   =========================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+:root {
+  /* Color tokens */
+  --clr-bg: #0b1544;            /* page background */
+  --clr-surface: #1a255f;       /* cards / panels */
+  --clr-surface-2: #111a4a;
+  --clr-text: #ffffff;
+  --clr-muted: #b7c0ff;
+
+  --clr-primary: #00ff99;
+  --clr-primary-600: #00e68a;
+  --clr-primary-700: #00cc7b;
+
+  --clr-accent: #6ee7ff;
+  --clr-danger: #ff5470;
+
+  /* Typography scale (Major Third-ish) */
+  --ff-display: 'Carter One', system-ui, sans-serif;
+  --ff-body: 'Roboto Slab', ui-serif, Georgia, serif;
+  --fs-900: clamp(2rem, 1.2rem + 2.5vw, 3rem);
+  --fs-700: clamp(1.25rem, 0.9rem + 1vw, 1.75rem);
+  --fs-600: 1.25rem;
+  --fs-500: 1.125rem;
+  --fs-400: 1rem;
+  --fs-300: 0.925rem;
+
+  /* Spacing scale (8px baseline) */
+  --space-1: .25rem;   /* 4  */
+  --space-2: .5rem;    /* 8  */
+  --space-3: .75rem;   /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+
+  /* Radius & shadow */
+  --radius-s: .5rem;
+  --radius-m: .75rem;
+  --radius-l: 1rem;
+  --shadow-1: 0 6px 16px rgba(0,0,0,.25);
+
+  /* Component sizing */
+  --container-w: 420px;
+  --input-h: 44px;
+  --btn-h: 48px;
+
+  /* Transition */
+  --dur-1: 140ms;
+  --dur-2: 220ms;
+
+  /* Outline for a11y */
+  --focus-ring: 0 0 0 3px rgba(110,231,255,.35), 0 0 0 6px rgba(0,255,153,.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Dark theme variant ready */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-bg: #0b1544;
+    --clr-surface: #18225a;
+    --clr-surface-2: #101842;
+    --clr-text: #f4f6ff;
+    --clr-muted: #c9d1ff;
+  }
+}
+
+/* Base */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 20% -10%, #17215b 0%, var(--clr-bg) 55%) fixed;
+  color: var(--clr-text);
+  font-family: var(--ff-body);
+  font-size: var(--fs-400);
+  line-height: 1.5;
+}
+
+/* ===========================
+   1) LAYOUT
+   =========================== */
+.container {
+  width: min(100%, var(--container-w));
+  margin-inline: auto;
+  padding: var(--space-6) var(--space-4) var(--space-7);
+}
+
+.stack > * + * { margin-top: var(--space-4); }             /* vertical rhythm */
+.cluster { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+.center { display: grid; place-items: center; min-height: 100dvh; padding: var(--space-6) var(--space-4); }
+
+/* Screens */
+.screen { display: none; }
+.screen.is-active { display: block; }
+
+/* ===========================
+   2) BRAND HEADER
+   =========================== */
+.brand {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+.brand__logo { width: 84px; aspect-ratio: 1; object-fit: contain; }
+.brand__title {
+  font-family: var(--ff-display);
+  font-size: var(--fs-900);
+  letter-spacing: .4px;
+  margin: 0;
+}
+
+/* ===========================
+   3) CARD
+   =========================== */
+.card {
+  background: linear-gradient(180deg, var(--clr-surface) 0%, var(--clr-surface-2) 100%);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-1);
+  padding: var(--space-6) var(--space-5);
+}
+.card--tight { padding: var(--space-5); }
+
+/* ===========================
+   4) FORMS
+   =========================== */
+.label {
+  font-size: var(--fs-300);
+  color: var(--clr-muted);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  height: var(--input-h);
+  padding: 0 var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-s);
+  background: rgba(255,255,255,0.06);
+  color: var(--clr-text);
+  outline: none;
+  transition: border-color var(--dur-1) ease, box-shadow var(--dur-1) ease, background var(--dur-1) ease;
+}
+
+
+.textarea {
+  min-height: 96px;
+  padding: var(--space-3) var(--space-4);
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder { color: #99a4ff; }
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: var(--clr-accent);
+  box-shadow: var(--focus-ring);
+  background: rgba(255,255,255,0.08);
+}
+
+/* Choice pills */
+.pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pill {
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.06);
+  color: var(--clr-text);
+  padding: .5rem .875rem;
+  border-radius: 999px;
+  font-size: var(--fs-300);
+  cursor: pointer;
+  transition: transform var(--dur-1) ease, background var(--dur-1) ease, border-color var(--dur-1) ease;
+}
+.pill:hover { transform: translateY(-1px); }
+.pill.is-selected {
+  background: var(--clr-primary);
+  color: #051b14;
+  border-color: transparent;
+}
+
+/* ===========================
+   5) BUTTONS
+   =========================== */
+.btn {
+  display: inline-grid;
+  place-items: center;
+  height: var(--btn-h);
+  width: 100%;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-m);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform var(--dur-1) ease, box-shadow var(--dur-1) ease, background var(--dur-1) ease, opacity var(--dur-1) ease;
+}
+
+.btn:focus-visible { box-shadow: var(--focus-ring); }
+
+.btn--primary {
+  background: var(--clr-primary);
+  color: #021b12;
+}
+.btn--primary:hover { transform: translateY(-1px); background: var(--clr-primary-600); }
+.btn--primary:active { transform: translateY(0); background: var(--clr-primary-700); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--clr-text);
+  border: 1px solid rgba(255,255,255,.2);
+}
+.btn--ghost:hover { background: rgba(255,255,255,.06); }
+
+.btn--danger { background: var(--clr-danger); color: #fff; }
+
+.btn[disabled],
+.btn.is-loading {
+  opacity: .6;
+  pointer-events: none;
+}
+
+/* ===========================
+   6) MOVIE CARD
+   =========================== */
+.movie {
+  display: grid;
+  gap: var(--space-4);
+}
+.movie__poster {
+  width: 100%;
+  border-radius: var(--radius-m);
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  box-shadow: var(--shadow-1);
+}
+.movie__title {
+  font-family: var(--ff-display);
+  font-size: var(--fs-700);
+  margin: 0;
+}
+.movie__meta { color: var(--clr-muted); font-size: var(--fs-300); }
+.movie__desc { margin: 0; }
+
+/* ===========================
+   7) UTILITIES
+   =========================== */
+.u-muted { color: var(--clr-muted); }
+.u-center { text-align: center; }
+.u-gap-2 { gap: var(--space-2); }
+.u-gap-3 { gap: var(--space-3); }
+.u-gap-4 { gap: var(--space-4); }
+.u-mt-2 { margin-top: var(--space-2); }
+.u-mt-4 { margin-top: var(--space-4); }
+.u-mt-6 { margin-top: var(--space-6); }
+
+/* Responsive tweaks */
+@media (min-width: 480px) {
+  :root { --container-w: 520px; }
+}
+@media (min-width: 768px) {
+  :root { --container-w: 640px; }
+}
+
+/* ===========================
+   8) TOAST (optional)
+   =========================== */
+.toast {
+  position: fixed;
+  inset-inline: 0;
+  bottom: var(--space-4);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.toast__inner {
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  border-radius: var(--radius-s);
+  padding: .65rem .9rem;
+  border: 1px solid rgba(255,255,255,.15);
+  pointer-events: auto;
+}
