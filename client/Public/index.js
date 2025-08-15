@@ -86,15 +86,16 @@ function clearInputForNextPerson(){
 
 /* ---API---*/
 async function api(path, opts = {}) {
-    const res = await fetch(path, {
-        headers: { 'Content-Type': 'application/json' },
-        ...opts,
-    })
-    if (!res.ok) {
-        const err = await res.json().catch(() =>({}));
-        throw new Error(err.message || `HTTP ${res.status}`);
-    }
-    return res.json();
+  const base = window.API_BASE || '';
+  const res = await fetch(base + path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.message || `HTTP ${res.status}`);
+  }
+  return res.json();
 }
 
 /* --- flows --- */
